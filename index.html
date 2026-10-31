@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CALIWOOD · Sabores de Cali</title>
+<link rel="icon" type="image/png" sizes="64x64" href="img/favicon-64.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Lilita+One&family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
@@ -299,12 +302,19 @@ footer.show{display:block}
 /* ============ TRANSITION ============ */
 #tx{position:fixed;inset:0;z-index:300;visibility:hidden;pointer-events:none}
 #tx.show{visibility:visible;pointer-events:all}
-.tx-stripes{position:absolute;inset:0;display:flex}
-.tx-stripes i{flex:1;transform:scaleY(0);transform-origin:bottom;transition:transform .55s cubic-bezier(.77,0,.18,1);transition-delay:calc(var(--k) * 55ms);position:relative;background-image:var(--noise)}
-.tx-stripes i::after{content:"";position:absolute;left:0;right:0;top:-18px;height:20px;background:inherit;clip-path:polygon(0 100%,8% 30%,16% 90%,26% 10%,38% 80%,50% 20%,62% 85%,72% 15%,84% 75%,92% 25%,100% 100%)}
-#tx[data-phase=in] .tx-stripes i,#tx[data-phase=logo] .tx-stripes i{transform:scaleY(1.05)}
-#tx[data-phase=out] .tx-stripes i{transform:scaleY(0);transform-origin:top;transition-delay:calc((6 - var(--k)) * 55ms)}
-#tx[data-phase=out] .tx-stripes i::after{top:auto;bottom:-18px;transform:scaleY(-1)}
+/* Transición: bandera de Colombia (amarillo 2 : azul 1 : rojo 1) */
+.tx-stripes{position:absolute;inset:0;display:flex;flex-direction:column}
+.tx-stripes i{position:relative;overflow:hidden;transform:scaleX(0);transition:transform .62s cubic-bezier(.77,0,.18,1);background-image:var(--noise)}
+.tx-stripes i.fy{flex:2;background-color:#fcd116;transform-origin:left;transition-delay:0ms}
+.tx-stripes i.fb{flex:1;background-color:#003893;transform-origin:right;transition-delay:110ms}
+.tx-stripes i.fr{flex:1;background-color:#ce1126;transform-origin:left;transition-delay:220ms}
+.tx-stripes i::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(100deg,rgba(255,255,255,0) 0,rgba(255,255,255,.16) 8%,rgba(0,0,0,.07) 16%,rgba(255,255,255,0) 24%);background-size:200% 100%;animation:flagWave 2.4s linear infinite}
+@keyframes flagWave{to{background-position:-200% 0}}
+#tx[data-phase=in] .tx-stripes i,#tx[data-phase=logo] .tx-stripes i{transform:scaleX(1.02)}
+#tx[data-phase=out] .tx-stripes i{transform:scaleX(0)}
+#tx[data-phase=out] .tx-stripes i.fy{transform-origin:right;transition-delay:200ms}
+#tx[data-phase=out] .tx-stripes i.fb{transform-origin:left;transition-delay:100ms}
+#tx[data-phase=out] .tx-stripes i.fr{transform-origin:right;transition-delay:0ms}
 .tx-center{position:absolute;left:50%;top:50%;width:min(300px,62vw);aspect-ratio:1;transform:translate(-50%,-56%)}
 .tx-spin{position:absolute;inset:0;transform:scale(.15) rotate(-220deg);opacity:0;transition:transform .8s cubic-bezier(.34,1.56,.64,1),opacity .3s}
 #tx[data-phase=logo] .tx-spin{transform:scale(1) rotate(0);opacity:1}
@@ -619,7 +629,7 @@ footer.show{display:block}
 <!-- ===== TRANSITION ===== -->
 <div id="tx" aria-hidden="true">
   <div class="tx-stripes">
-    <i style="--k:0;background-color:#ffc93c"></i><i style="--k:1;background-color:#ff5da2"></i><i style="--k:2;background-color:#1f4fd1"></i><i style="--k:3;background-color:#e3263b"></i><i style="--k:4;background-color:#9b5de5"></i><i style="--k:5;background-color:#22a95f"></i><i style="--k:6;background-color:#ff8a1f"></i>
+    <i class="fy"></i><i class="fb"></i><i class="fr"></i>
   </div>
   <div class="tx-doodles" id="txDoodles"></div>
   <div class="tx-center">
